@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>test | Hexo</title>
+  <title>sql 36-40关 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="#just for a test##666">
+  <meta name="description" content="sql第三十六关 1.发现单引号被转义，直接宽字节注入，联合查询，没有其它区别 sql第三十七关 1.引号还是会被转义，做法同上，用post方法注入，其它的同前面几关 sql第三十八关 1.这关可以使用一种新方法，即堆叠注入，查看源代码，mysqli_multi_query() 函数执行一个或多个针对数据库的查询。多个查询用分号进行分隔。（有这个才能进行堆叠），用；来进行堆叠注入，其原理就是把多个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="http://example.com/2022/12/23/test/index.html">
+<meta property="og:title" content="sql 36-40关">
+<meta property="og:url" content="http://example.com/2023/12/22/sql-36-40%E5%85%B3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#just for a test##666">
+<meta property="og:description" content="sql第三十六关 1.发现单引号被转义，直接宽字节注入，联合查询，没有其它区别 sql第三十七关 1.引号还是会被转义，做法同上，用post方法注入，其它的同前面几关 sql第三十八关 1.这关可以使用一种新方法，即堆叠注入，查看源代码，mysqli_multi_query() 函数执行一个或多个针对数据库的查询。多个查询用分号进行分隔。（有这个才能进行堆叠），用；来进行堆叠注入，其原理就是把多个">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-12-23T09:20:46.000Z">
-<meta property="article:modified_time" content="2022-12-23T14:31:19.665Z">
+<meta property="article:published_time" content="2023-12-22T10:09:17.000Z">
+<meta property="article:modified_time" content="2023-04-12T14:59:44.868Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -73,10 +73,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-sql-36-40关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/12/23/test/" class="article-date">
-  <time class="dt-published" datetime="2022-12-23T09:20:46.000Z" itemprop="datePublished">2022-12-23</time>
+    <a href="/2023/12/22/sql-36-40%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-12-22T10:09:17.000Z" itemprop="datePublished">2023-12-22</time>
 </a>
     
   </div>
@@ -87,7 +87,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      test
+      sql 36-40关
     </h1>
   
 
@@ -95,12 +95,24 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>#just for a test<br>##666  </p>
+        <p>sql第三十六关</p>
+<p>1.发现单引号被转义，直接宽字节注入，联合查询，没有其它区别</p>
+<p>sql第三十七关</p>
+<p>1.引号还是会被转义，做法同上，用post方法注入，其它的同前面几关</p>
+<p>sql第三十八关</p>
+<p>1.这关可以使用一种新方法，即堆叠注入，查看源代码，mysqli_multi_query() 函数执行一个或多个针对数据库的查询。多个查询用分号进行分隔。（有这个才能进行堆叠），用；来进行堆叠注入，其原理就是把多个语句当成一个语句来执行，不仅可以执行查询语句，也可以执行别的语句了。这关主要用于尝试注入表格和删除表格等操作</p>
+<p>2.select * from student whereid&#x3D;1;create table test;当执行查询后，第一条显示查询信息，第二条则创建一个test表。</p>
+<p>3.select * from users where  id &#x3D;2;create table zhong like student;这里加入like是复制student的表结构</p>
+<p>4.select * from users where  id &#x3D;2;drop table zhong;删除了zhong表</p>
+<p>sql第三十九关</p>
+<p>1.数字型注入，可以新建表：?id&#x3D;1 ;create table test like users;%23，其它同上</p>
+<p>sql第四十关</p>
+<p>1.’)型注入，输入id&#x3D;1’) ;create table test like users;%23其它同上</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/23/test/" data-id="clg3wi6790002awxxdxce0e1x" data-title="test" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/12/22/sql-36-40%E5%85%B3/" data-id="clgdtik6l0000eoxxdjx488lf" data-title="sql 36-40关" class="article-share-link">Share</a>
       
       
       
@@ -110,19 +122,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/04/11/sql-26-30%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          sql 26-30关
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/12/20/sql-31-35%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/12/15/sql-11-15%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">sql 31-35关</div>
+      <div class="article-nav-title">sql 11-15关</div>
     </a>
   
 </nav>

@@ -71,6 +71,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sql-36-40关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/22/sql-36-40%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-12-22T10:09:17.000Z" itemprop="datePublished">2023-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/12/22/sql-36-40%E5%85%B3/">sql 36-40关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql第三十六关</p>
+<p>1.发现单引号被转义，直接宽字节注入，联合查询，没有其它区别</p>
+<p>sql第三十七关</p>
+<p>1.引号还是会被转义，做法同上，用post方法注入，其它的同前面几关</p>
+<p>sql第三十八关</p>
+<p>1.这关可以使用一种新方法，即堆叠注入，查看源代码，mysqli_multi_query() 函数执行一个或多个针对数据库的查询。多个查询用分号进行分隔。（有这个才能进行堆叠），用；来进行堆叠注入，其原理就是把多个语句当成一个语句来执行，不仅可以执行查询语句，也可以执行别的语句了。这关主要用于尝试注入表格和删除表格等操作</p>
+<p>2.select * from student whereid&#x3D;1;create table test;当执行查询后，第一条显示查询信息，第二条则创建一个test表。</p>
+<p>3.select * from users where  id &#x3D;2;create table zhong like student;这里加入like是复制student的表结构</p>
+<p>4.select * from users where  id &#x3D;2;drop table zhong;删除了zhong表</p>
+<p>sql第三十九关</p>
+<p>1.数字型注入，可以新建表：?id&#x3D;1 ;create table test like users;%23，其它同上</p>
+<p>sql第四十关</p>
+<p>1.’)型注入，输入id&#x3D;1’) ;create table test like users;%23其它同上</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/12/22/sql-36-40%E5%85%B3/" data-id="clgdtik6l0000eoxxdjx488lf" data-title="sql 36-40关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-sql-11-15关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/12/15/sql-11-15%E5%85%B3/" class="article-date">
@@ -666,6 +717,10 @@
       <ul>
         
           <li>
+            <a href="/2023/12/22/sql-36-40%E5%85%B3/">sql 36-40关</a>
+          </li>
+        
+          <li>
             <a href="/2023/12/15/sql-11-15%E5%85%B3/">sql 11-15关</a>
           </li>
         
@@ -679,10 +734,6 @@
         
           <li>
             <a href="/2022/12/20/sql-31-35%E5%85%B3/">sql 31-35关</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/18/sql-21-25%E5%85%B3/">sql 21-25关</a>
           </li>
         
       </ul>
