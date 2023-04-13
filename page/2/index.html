@@ -71,6 +71,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sql-6-10关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/12/sql-6-10%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2022-12-12T04:43:21.000Z" itemprop="datePublished">2022-12-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/12/sql-6-10%E5%85%B3/">sql 6-10关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql第六关</p>
+<p>1.输入id&#x3D;1”报错，初步判断是双引号型字符注入，验证后发现确实</p>
+<p>2.发现可以使用报错注入等，与上一关无区别</p>
+<p>sql第七关</p>
+<p>1.输入id&#x3D;1’报错，输入id&#x3D;1”#，正常回显，但是表明双引号被过滤，说明不是双引号过滤，由于单引号报错，就继续试，发现id&#x3D;-1”))#成功了</p>
+<p>2.跟前几关无异</p>
+<p>sql第八关</p>
+<p>1.输入id&#x3D;1’，页面变化但没报错，输入其它的发现页面均正常回应，因此从单引号开始入手，输入id&#x3D;1’#发现就是单引号注入，但是发现注入后根本不回显任何信息。</p>
+<p>2.采用bool盲注，输入id&#x3D;1’ and length(database()) &#x3D;1 –+，一直没反应，知道输入到8为止，正常回显，所以数据库长度是8</p>
+<p>3.猜库名，输入id&#x3D;1’ and ascill(substr(database(),1,1))&gt;97 –+，渐渐爆出来了，然后拼就行。</p>
+<p>4.然后猜表名列名，总有把范围缩小完的时候。</p>
+<p>sql第九关</p>
+<p>1.不断判断注入方式，但页面没有任何变化，因此需要寻找参照点</p>
+<p>2.选择时间盲注，输入id&#x3D;x and if(x,sleep(a),1)，不断尝试注入方式，查看页面的反应时间，在id&#x3D;1”的时候反应时间变慢，所以是双引号注入。</p>
+<p>3.if()函数中：<br>    x为布尔盲注中的长度、字符猜测语句，如：length(database())&#x3D;1<br>    sleep()函数，a为时间间隔，如果前面的语句x为真，则在页面出来前间隔a秒；<br>    1：占位</p>
+<p>4.使用对应语句，然后把表名列名弄出来。</p>
+<p>sql第十关</p>
+<p>1.还是没反应，跟第九关一样，最后试出来是双引号闭合</p>
+<p>2.操作如第九关</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/12/sql-6-10%E5%85%B3/" data-id="clg86utyz0000lwxx9h5g46yc" data-title="sql 6-10关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-sql1-5关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/12/10/sql1-5%E5%85%B3/" class="article-date">
@@ -257,7 +314,7 @@
           </li>
         
           <li>
-            <a href="/2022/12/26/sql-46-50%E5%85%B3/">sql 46-50关</a>
+            <a href="/2022/12/27/sql-51-55%E5%85%B3/">sql 51-55关</a>
           </li>
         
       </ul>

